@@ -3,5 +3,36 @@ name = "warper"
 version = "0.1.0"
 description = "Index and search time serieses."
 readme = "README.md"
+authors = [
+    { name = "Jacob Xiaoyu Wei", email = "xywei@protonmail.com" }
+]
 requires-python = ">=3.12"
-dependencies = []
+dependencies = [
+    "faiss-cpu>=1.11.0",
+    "flt>=2025.1",
+    "jax>=0.6.0",
+    "numpy>=2.2.5",
+    "pandas>=2.2.3",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.3.5",
+    "pytest-cov>=6.1.1",
+    "ruff>=0.11.8",
+]
+
+[project.scripts]
+warper = "warper:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = "test_*.py"
+python_functions = "test_*"
+
+[tool.ruff.lint]
+extend-select = ["B"]
