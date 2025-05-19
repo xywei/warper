@@ -32,7 +32,7 @@ def legendre_embed_batch(
     # --- pre‑compute Legendre nodes (constants for given L, closed) ---------
     theta = jnp.asarray(
         flt.theta(L, closed=closed), dtype=jnp.float32
-    )  # :contentReference[oaicite:1]{index=1}
+    )
     x_leg = jnp.cos(theta)
     order = jnp.argsort(x_leg)
     x_sorted = jax.lax.stop_gradient(x_leg[order])  # keep as const
@@ -40,11 +40,11 @@ def legendre_embed_batch(
 
     # --- per‑window embedder -------------------------------------------------
     def _embed_one(w):
-        # 1‑D linear interpolation (JAX‑compatible)                          # :contentReference[oaicite:2]{index=2}
+        # 1‑D linear interpolation (JAX‑compatible)
         y_sorted = jnp.interp(x_sorted, x_uniform, w)
         y_leg = jnp.empty_like(w).at[order].set(y_sorted)  # unsort
 
-        # fast discrete Legendre transform (O(N log N))                     # :contentReference[oaicite:3]{index=3}
+        # fast discrete Legendre transform (O(N log N))
         coeffs = flt.dlt(y_leg, closed=closed)
         coeffs *= jnp.sqrt(
             (2 * jnp.arange(L) + 1) / 2
