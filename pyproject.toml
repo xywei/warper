@@ -1,7 +1,7 @@
 [project]
 name = "warper"
 version = "0.1.0"
-description = "Index and search time serieses."
+description = "Index and search time series."
 readme = "README.md"
 authors = [
     { name = "Jacob Xiaoyu Wei", email = "xywei@protonmail.com" }
